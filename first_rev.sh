@@ -1,4 +1,4 @@
-main=pwd
+main=`pwd`
 i=1
 
 while [ $i = 1 ]
@@ -22,19 +22,23 @@ case $ch in
 1)
 clear
 echo 'Files and Directories :'
-ls
+echo
+ls --group-directories-first
 ;;
 
 2)
 clear
 echo 'Directories :'
 tree -d
+echo
 read -p 'Choose Directory:' dir
 cd $dir
 read -p 'Enter Name :' dname
 mkdir $dname
+echo
 echo 'Directory created Successfully.'
 cd $main
+echo
 echo 'Result:'
 tree -d
 ;;
@@ -45,10 +49,12 @@ echo 'Directories :'
 tree -d
 read -p 'Choose Directory:' dir
 read -p 'Enter File Name :' fname
-cd $dir |vi $fname
+cd $dir | gedit $fname
+echo
 echo 'File created Successfully.'
+echo
 echo 'Result:'
-ls -f
+ls | grep "$fname"  
 cd $main
 ;;
 
@@ -61,8 +67,9 @@ cd $dir
 read -p 'Enter File Name:' fname
 read -p 'Enter New Name;' new
 mv $fname $new
+echo
 echo 'File Renamed Sucessfully.'
-ls -f
+ls |  grep "$new" 
 cd $main
 ;;
 
@@ -72,12 +79,12 @@ echo 'Directories :'
 tree -d
 read -p 'Choose Directory:' dir
 cd $dir
-read -p 'Enter ditectory:' dname
-read -p 'enetr new name:' new
+read -p 'Enter Directory :' dname
+read -p 'Enetr New Name:' new
 mv $dname $new
 echo 'Directory Renamed Successfully.'
 cd $main
-tree
+tree -d
 ;;
 
 6)
@@ -86,9 +93,10 @@ echo 'Files:'
 tree
 read -p 'Choose Directory:' dir
 cd $dir
-read -p 'Enter file name:' fname
+read -p 'Enter File Name:' fname
 rm $fname
-echo 'File Removed.'
+echo
+echo 'File Removed Sucessfully.'
 ls -f
 cd $main
 ;;
@@ -100,8 +108,9 @@ tree -d
 read -p 'Choose Directory:' dir
 cd $dir
 read -p 'Enter directory name:' dname
-rmdir $dname
-echo 'Directory Removed'
+rm -rf $dname
+echo
+echo 'Directory Removed Successfully.'
 cd $main
 tree -d
 ;;
@@ -109,15 +118,18 @@ tree -d
 8)
 clear
 ls
+echo
 read -p 'Enter File name;' fname
 find $main -name $fname
 ;;
 
 9)
+clear
 echo 'Present Working Directory is :'
 pwd
 ;;
 esac
 
-read -p 'Continue?' i
+echo
+read -p 'Do you want to Continue?' i
 done
